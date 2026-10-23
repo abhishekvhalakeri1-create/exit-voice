@@ -81,8 +81,9 @@ function AppShell() {
 }
 
 export default function App() {
+  const basename = (import.meta.env.BASE_URL || '/').replace(/\/$/, '') || '/';
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={basename}>
       <AppProvider>
         <AppShell />
       </AppProvider>

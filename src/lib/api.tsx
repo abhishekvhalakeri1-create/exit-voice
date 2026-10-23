@@ -8,20 +8,50 @@ export class ApiError extends Error {
   }
 }
 
+let backendMode: 'unknown' | 'server' | 'browser' =
+  typeof window !== 'undefined' && window.location.hostname.endsWith('.github.io')
+    ? 'browser'
+    : 'unknown';
+
 export async function apiFetch<T = any>(
   path: string,
   options: RequestInit = {}
 ): Promise<T> {
+  if (backendMode === 'browser') {
+    const { handleBrowserApiRequest } = await import('./browserStore');
+    return (await handleBrowserApiRequest(path, options)) as T;
+  }
+
   const headers = new Headers(options.headers || {});
   if (options.body && !headers.has('Content-Type')) {
     headers.set('Content-Type', 'application/json');
   }
 
-  const response = await fetch(path, {
-    ...options,
-    credentials: 'same-origin',
-    headers,
-  });
+  let response: Response;
+  try {
+    response = await fetch(path, {
+      ...options,
+      credentials: 'same-origin',
+      headers,
+    });
+  } catch {
+    backendMode = 'browser';
+    const { handleBrowserApiRequest } = await import('./browserStore');
+    return (await handleBrowserApiRequest(path, options)) as T;
+  }
+
+  const contentType = response.headers.get('content-type') || '';
+  if (
+    backendMode === 'unknown' &&
+    (!contentType.includes('application/json') ||
+      window.location.hostname.endsWith('.github.io'))
+  ) {
+    backendMode = 'browser';
+    const { handleBrowserApiRequest } = await import('./browserStore');
+    return (await handleBrowserApiRequest(path, options)) as T;
+  }
+
+  backendMode = 'server';
 
   const text = await response.text();
   let data: any = null;

@@ -1,5 +1,6 @@
 node_modules
 dist
+docs
 build
 data/*.db
 data/*.db-shm
