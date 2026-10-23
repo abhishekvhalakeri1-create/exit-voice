@@ -81,10 +81,13 @@ function AppShell() {
 }
 
 export default function App() {
-  const isGitHubPages =
-    typeof window !== 'undefined' && window.location.hostname.endsWith('.github.io');
+  const useHashRouting =
+    typeof window !== 'undefined' &&
+    (window.location.protocol === 'file:' ||
+      window.location.hostname.endsWith('.github.io') ||
+      Boolean((window as any).__EXITVOICE_STANDALONE__));
 
-  if (isGitHubPages) {
+  if (useHashRouting) {
     return (
       <HashRouter>
         <AppProvider>
