@@ -8,10 +8,15 @@ export class ApiError extends Error {
   }
 }
 
-let backendMode: 'unknown' | 'server' | 'browser' =
-  typeof window !== 'undefined' && window.location.hostname.endsWith('.github.io')
-    ? 'browser'
-    : 'unknown';
+const isStandaloneClientHost = () =>
+  typeof window !== 'undefined' &&
+  (window.location.protocol === 'file:' ||
+    window.location.hostname.endsWith('.github.io') ||
+    Boolean((window as any).__EXITVOICE_STANDALONE__));
+
+let backendMode: 'unknown' | 'server' | 'browser' = isStandaloneClientHost()
+  ? 'browser'
+  : 'unknown';
 
 export async function apiFetch<T = any>(
   path: string,
