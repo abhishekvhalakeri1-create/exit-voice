@@ -1,0 +1,37 @@
+{
+  "name": "exitvoice",
+  "version": "1.0.0",
+  "private": true,
+  "description": "ExitVoice — Every exit has a story. Community platform for workplace exit experiences.",
+  "type": "module",
+  "scripts": {
+    "dev": "NODE_OPTIONS='--no-warnings' tsx server/index.ts",
+    "build": "tsc -b && vite build",
+    "build:pages": "tsc -b && vite build --base=/exit-voice/ --outDir=docs && cp docs/index.html docs/404.html && touch docs/.nojekyll",
+    "start": "NODE_ENV=production NODE_OPTIONS='--no-warnings' tsx server/index.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@fontsource/instrument-serif": "^5.1.0",
+    "@fontsource/inter": "^5.1.0",
+    "cookie-parser": "^1.4.7",
+    "express": "^4.21.2",
+    "lucide-react": "^0.475.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-router-dom": "^7.1.5",
+    "tsx": "^4.19.2"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.0.6",
+    "@types/cookie-parser": "^1.4.7",
+    "@types/express": "^4.17.21",
+    "@types/node": "^22.13.4",
+    "@types/react": "^19.0.8",
+    "@types/react-dom": "^19.0.3",
+    "tailwindcss": "^4.0.6",
+    "typescript": "^5.7.3",
+    "vite": "^6.1.0",
+    "@vitejs/plugin-react": "^4.3.4"
+  }
+}

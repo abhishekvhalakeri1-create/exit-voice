@@ -1,0 +1,164 @@
+@import '@fontsource/instrument-serif/400.css';
+@import '@fontsource/instrument-serif/400-italic.css';
+@import '@fontsource/inter/400.css';
+@import '@fontsource/inter/500.css';
+@import '@fontsource/inter/600.css';
+@import '@fontsource/inter/700.css';
+@import 'tailwindcss';
+
+:root {
+  --bg-page: #FBF8F5;
+  --bg-surface: #FFFFFF;
+  --bg-subtle: #F5EFE8;
+  --bg-hover: #EFE7DD;
+  --text-primary: #1C1917;
+  --text-secondary: #736B63;
+  --text-muted: #8A8178;
+  --border-subtle: #ECE6DE;
+  --border-strong: #D9D0C3;
+  --accent: #B85D43;
+  --accent-solid: #A84E35;
+  --accent-hover: #8F3F29;
+  --accent-on-solid: #FFFFFF;
+  --accent-tint: #F8EDE8;
+  --accent-text: #99432B;
+  --status-positive: #2F5E45;
+  --status-positive-bg: #EAF3EE;
+  --status-caution: #85551B;
+  --status-caution-bg: #FCF4E6;
+  --status-danger: #9E3329;
+  --status-danger-bg: #FCECE9;
+  --shadow-overlay: 0 12px 32px -8px rgba(28, 25, 23, 0.12), 0 2px 6px -1px rgba(28, 25, 23, 0.06);
+}
+
+.dark {
+  --bg-page: #141210;
+  --bg-surface: #1D1A17;
+  --bg-subtle: #26221E;
+  --bg-hover: #302B26;
+  --text-primary: #F5F0EB;
+  --text-secondary: #A89F95;
+  --text-muted: #877E74;
+  --border-subtle: #2F2A25;
+  --border-strong: #433B34;
+  --accent: #D4795E;
+  --accent-solid: #D4795E;
+  --accent-hover: #E0896F;
+  --accent-on-solid: #141210;
+  --accent-tint: #2D201B;
+  --accent-text: #E59279;
+  --status-positive: #88C0A0;
+  --status-positive-bg: #1B2B22;
+  --status-caution: #E7B973;
+  --status-caution-bg: #2C2316;
+  --status-danger: #F08C82;
+  --status-danger-bg: #301B19;
+  --shadow-overlay: 0 16px 38px -8px rgba(0, 0, 0, 0.52), 0 2px 8px rgba(0, 0, 0, 0.34);
+}
+
+@layer base {
+  html {
+    background-color: var(--bg-page);
+    color: var(--text-primary);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--bg-page);
+    color: var(--text-primary);
+    margin: 0;
+    min-height: 100vh;
+    transition: background-color 160ms ease, color 160ms ease;
+  }
+
+  button:not(:disabled),
+  a[href],
+  select:not(:disabled),
+  input[type='checkbox']:not(:disabled),
+  input[type='radio']:not(:disabled) {
+    cursor: pointer;
+  }
+}
+
+.font-editorial {
+  font-family: 'Instrument Serif', Georgia, Cambria, 'Times New Roman', serif;
+  letter-spacing: -0.012em;
+}
+
+.ev-surface {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+}
+
+.ev-subtle {
+  background-color: var(--bg-subtle);
+}
+
+.ev-border {
+  border-color: var(--border-subtle);
+}
+
+.ev-btn-primary {
+  background-color: var(--accent-solid);
+  color: var(--accent-on-solid);
+  font-weight: 500;
+  transition: background-color 140ms ease, transform 90ms ease;
+}
+
+.ev-btn-primary:hover:not(:disabled) {
+  background-color: var(--accent-hover);
+}
+
+.ev-btn-secondary {
+  background-color: var(--bg-surface);
+  color: var(--text-primary);
+  border: 1px solid var(--border-strong);
+  font-weight: 500;
+  transition: background-color 140ms ease, border-color 140ms ease;
+}
+
+.ev-btn-secondary:hover:not(:disabled) {
+  background-color: var(--bg-subtle);
+}
+
+.ev-input {
+  background-color: var(--bg-surface);
+  color: var(--text-primary);
+  border: 1px solid var(--border-strong);
+  transition: border-color 140ms ease, box-shadow 140ms ease;
+}
+
+.ev-input::placeholder {
+  color: var(--text-muted);
+}
+
+.ev-input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-tint);
+}
+
+/* Reddit-style vertical thread guide rail */
+.ev-thread-rail {
+  width: 16px;
+  display: flex;
+  justify-content: center;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+.ev-thread-rail::before {
+  content: '';
+  width: 2px;
+  height: 100%;
+  background-color: var(--border-subtle);
+  border-radius: 2px;
+  transition: background-color 130ms ease;
+}
+
+.ev-thread-rail:hover::before {
+  background-color: var(--accent);
+}
