@@ -105,8 +105,11 @@ export function StoryCard({ story, compact = false, onBookmarkChange }: StoryCar
   const handleShare = async (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
+    const isGhPages = window.location.hostname.endsWith('.github.io');
     const base = (import.meta.env.BASE_URL || '/').replace(/\/$/, '');
-    const url = `${window.location.origin}${base}/stories/${story.slug}`;
+    const url = isGhPages
+      ? `${window.location.origin}${base}/#/stories/${story.slug}`
+      : `${window.location.origin}${base}/stories/${story.slug}`;
     try {
       if (navigator.clipboard) {
         await navigator.clipboard.writeText(url);

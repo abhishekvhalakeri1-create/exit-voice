@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, HashRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { AppProvider, useApp } from './context/AppContext';
 import { Navbar } from './components/Navbar';
 import { Footer } from './components/Footer';
@@ -81,9 +81,21 @@ function AppShell() {
 }
 
 export default function App() {
-  const basename = (import.meta.env.BASE_URL || '/').replace(/\/$/, '') || '/';
+  const isGitHubPages =
+    typeof window !== 'undefined' && window.location.hostname.endsWith('.github.io');
+
+  if (isGitHubPages) {
+    return (
+      <HashRouter>
+        <AppProvider>
+          <AppShell />
+        </AppProvider>
+      </HashRouter>
+    );
+  }
+
   return (
-    <BrowserRouter basename={basename}>
+    <BrowserRouter>
       <AppProvider>
         <AppShell />
       </AppProvider>
